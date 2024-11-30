@@ -4,6 +4,7 @@ local replace = require('grug-far.actions.replace')
 local qflist = require('grug-far.actions.qflist')
 local gotoLocation = require('grug-far.actions.gotoLocation')
 local openLocation = require('grug-far.actions.openLocation')
+local openNewTab = require('grug-far.actions.openNewTab')
 local syncLocations = require('grug-far.actions.syncLocations')
 local syncLine = require('grug-far.actions.syncLine')
 local close = require('grug-far.actions.close')
@@ -97,6 +98,14 @@ local function getActions(buf, context)
       description = "Same as 'Goto', but cursor stays in grug-far buffer. This can allow a quicker thumb-through result locations. Alternatively, you can use the '--context <num>' flag to see match contexts. If a <count> is entered beforehand, open the location corresponding to <count> result line.",
       action = function()
         openLocation({ buf = buf, context = context, count = vim.v.count })
+      end,
+    },
+    {
+      text = 'Open in New Tab',
+      keymap = keymaps.openNewTab,
+      description = 'Open the selected location in a new tab.',
+      action = function()
+        openNewTab({ buf = buf, context = context, count = vim.v.count })
       end,
     },
     {
